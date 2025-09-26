@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Emoji + Options</title>
+  <style>
+    :root { --gap: 12px; --pad: 12px; }
+
+    body {
+      margin: 0;
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      background: #ffc0cb;            /* HỒNG */
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: #1b1b1b;
+    }
+
+    /* Bọc header + stage để xếp dọc, canh giữa */
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      padding: 10px;
+      text-align: center;
+    }
+
+    .headline {
+      margin: 0;
+      font-weight: 800;
+      letter-spacing: .2px;
+      font-size: clamp(18px, 3.5vw, 28px);
+    }
+
+    /* Khung hiển thị GIF */
+    .stage {
+      position: relative;
+      width: min(92vw, 460px);
+      aspect-ratio: 1 / 1;           /* vuông, giữ tỉ lệ ổn định */
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+      background: #000;
+      user-select: none;
+      touch-action: manipulation;
+    }
+
+    .stage img.emoji {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;           /* ảnh không chặn sự kiện chuột */
+    }
+
+    /* Thanh điều khiển ban đầu: 2 option nằm ngang */
+    .controls {
+      position: absolute;
+      left: 50%;
+      bottom: var(--pad);
+      transform: translateX(-50%);
+      display: flex;
+      gap: var(--gap);
+      z-index: 2;
+    }
+
+    .btn, .link-btn {
+      appearance: none;
+      border: none;
+      text-decoration: none;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: #22c55e;           /* XANH LÁ */
+      color: #fff;
+      font-weight: 700;
+      letter-spacing: .2px;
+      box-shadow: 0 4px 14px rgba(0,0,0,.2);
+      transition: transform .12s ease, background .12s ease, box-shadow .12s ease;
+      cursor: pointer;
+      white-space: nowrap;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    .btn:hover, .link-btn:hover {
+      background: #16a34a;           /* Xanh lá đậm hơn khi hover */
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(0,0,0,.28);
+    }
+
+    /* Khi Option 1 chuyển sang chế độ "bay" trong khung gif */
+    .floating {
+      position: absolute;
+      z-index: 3;
+      transition: left .14s ease, top .14s ease, transform .14s ease;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- TIÊU ĐỀ NẰM TRÊN GIF -->
+    <h1 class="headline">Bé iu chọn đúng đáp án rùi đóooo</h1>
+    <h2 class="headline">Moahhhhhhhh 😘</h2>
+    <div class="stage" id="stage" aria-label="Khu vực emoji">
+      <img src="./img/2.gif" alt="Emoji GIF" class="emoji" />
+    </div>
+  </div>
+</body>
+</html>
