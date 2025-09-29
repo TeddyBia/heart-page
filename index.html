@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ESP Firebase App</title>
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <script>
+    // Firebase config
+    var firebaseConfig = {
+      apiKey: "AIzaSyDAPC5R3FZdiwmzO26T2gvVMUHO98CChdA",
+      authDomain: "kc326e.firebaseapp.com",
+      databaseURL: "https://kc326e-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "kc326e",
+      storageBucket: "kc326e.firebasestorage.app",
+      messagingSenderId: "1073378109515",
+      appId: "1:1073378109515:web:fba12dc5702ded368a85ce"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    var email = "nhom6@gmail.com";
+    var password = "12345678";
+    var database;
+
+    auth.signInWithEmailAndPassword(email, password)
+      .then(function (userCredential) {
+        console.log("Đăng nhập thành công:", userCredential.user.email);
+        database = firebase.database();
+        startReadingData();
+      })
+      .catch(function (error) {
+        console.log("Lỗi đăng nhập:", error.code, error.message);
+      });
+  </script>
+
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="container">
+    <h1>🚀 ESP32 Firebase Web App</h1>
+
+    <div class="card">
+      <h2>📡 Read Data ESP32</h2>
+      <p>Reading VR1: <span id="reading-int" class="value">--</span></p>
+      <p>Reading VR2: <span id="reading-float" class="value">--</span></p>
+    </div>
+
+    <div class="card">
+      <h2>✍️ Write Data To ESP32</h2>
+
+      <!-- Toggle Switch cho LED Xanh -->
+      <label>
+        <input type="checkbox" id="ledXanh-switch" onchange="writeLedXanh()">
+        <span>LED Xanh</span>
+      </label>
+      <br><br>
+
+      <!-- Slider cho LED Vàng -->
+      <label for="ledVang-slider">LED Vàng:</label>
+      <input type="range" id="ledVang-slider" min="0" max="255" step="1" 
+              oninput="updateSliderValue(this.value)" onchange="writeLedVang()">
+      <span id="slider-value">0</span>
+    </div>
+  </div>
+</body>
+</html>
